@@ -1,23 +1,24 @@
 import axios from "axios";
 
-const ACCESS_TOKEN = process.env.REACT_APP_TMDB_ACCESS_TOKEN;
+const BASE_URL = "https://api.themoviedb.org/3";
+const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
-const axiosInstance = axios.create({
-  baseURL: "https://api.themoviedb.org/3",
-  headers: {
-    Authorization: `Bearer ${ACCESS_TOKEN}`,
-    "Content-Type": "application/json;charset=utf-8",
-  },
+const tmdb = axios.create({
+  baseURL: BASE_URL,
+  params: { api_key: API_KEY },
 });
 
-// Fetch trending movies
 export const getTrendingMovies = async () => {
-  const response = await axiosInstance.get("/trending/movie/week");
-  return response.data.results;
+  const res = await tmdb.get("/trending/movie/week");
+  return res.data.results;
 };
 
-// Search movies by query
 export const searchMovies = async (query) => {
-  const response = await axiosInstance.get(`/search/movie?query=${query}`);
-  return response.data.results;
+  const res = await tmdb.get("/search/movie", { params: { query } });
+  return res.data.results;
+};
+
+export const getMovieDetails = async (id) => {
+  const res = await tmdb.get(`/movie/${id}`);
+  return res.data;
 };

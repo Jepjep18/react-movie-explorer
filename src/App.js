@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import SearchResults from "./pages/SearchResults";
 import SearchBar from "./components/SearchBar";
+import MovieDetails from "./pages/MovieDetails";
+
 
 export default function App() {
   return (
@@ -19,6 +21,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchResults />} />
+            <Route path="/movie/:id" element={<MovieDetails />} />
+
           </Routes>
         </main>
       </div>
