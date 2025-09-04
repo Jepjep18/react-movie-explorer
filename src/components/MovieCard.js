@@ -49,6 +49,12 @@ export default function MovieCard({ movie }) {
           >
             View More
           </Link>
+          <Link
+            to={`/movie/${movie.id}/play`}
+            className="mt-3 inline-block px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            ▶ Watch Trailer
+          </Link>
         </div>
       </div>
     </div>

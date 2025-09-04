@@ -30,4 +30,9 @@ export const getPopularMovies = async (page = 1) => {
   return res.data;
 };
 
+export const getMovieVideos = async (movieId) => {
+  const res = await tmdb.get(`/movie/${movieId}/videos`);
+  return res.data;
+};
+
 
