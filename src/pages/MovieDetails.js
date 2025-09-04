@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getMovieDetails } from "../api/tmdb";
 
 const IMG_BASE = "https://image.tmdb.org/t/p/w500";
@@ -25,10 +25,10 @@ export default function MovieDetails() {
   }
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-6xl mx-auto">
       <div className="flex flex-col md:flex-row gap-6">
-        {/* Image wrapper so it doesn’t stretch */}
-        <div className="flex-shrink-0">
+        {/* Poster */}
+        <div className="w-full md:w-1/3 flex justify-center">
           <img
             src={
               movie.poster_path
@@ -36,30 +36,38 @@ export default function MovieDetails() {
                 : "https://via.placeholder.com/500x750"
             }
             alt={movie.title}
-            className="w-full max-w-xs md:max-w-sm lg:max-w-md h-auto rounded-lg shadow-lg object-cover"
+            className="w-48 sm:w-64 md:w-full h-auto rounded-lg shadow-lg object-cover"
           />
         </div>
 
-        {/* Movie details */}
-        <div className="flex-grow">
-          <h1 className="text-3xl font-bold mb-2">{movie.title}</h1>
+        {/* Movie info */}
+        <div className="w-full md:w-2/3">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2">{movie.title}</h1>
           {movie.tagline && (
             <p className="text-gray-600 italic mb-4">"{movie.tagline}"</p>
           )}
-          <p className="mb-4">{movie.overview}</p>
-          <p className="mb-2">
+          <p className="mb-4 text-sm sm:text-base">{movie.overview}</p>
+          <p className="mb-2 text-sm sm:text-base">
             <strong>Release Date:</strong> {movie.release_date}
           </p>
-          <p className="mb-2">
+          <p className="mb-2 text-sm sm:text-base">
             <strong>Rating:</strong> ⭐ {movie.vote_average?.toFixed(1)} / 10
           </p>
-          <p className="mb-2">
+          <p className="mb-2 text-sm sm:text-base">
             <strong>Genres:</strong>{" "}
             {movie.genres.map((g) => g.name).join(", ")}
           </p>
-          <p className="mb-2">
+          <p className="mb-4 text-sm sm:text-base">
             <strong>Runtime:</strong> {movie.runtime} min
           </p>
+
+          {/* Trailer button */}
+          <Link
+            to={`/movie/${id}/play`}
+            className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          >
+            ▶ Watch Trailer
+          </Link>
         </div>
       </div>
     </div>

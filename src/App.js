@@ -5,14 +5,14 @@ import Home from "./pages/Home";
 import SearchResults from "./pages/SearchResults";
 import SearchBar from "./components/SearchBar";
 import MoviePlayer from "./pages/MoviePlayer";
-import MovieDetails from "./pages/MovieDetails";  // ✅ Add this import
+import MovieDetails from "./pages/MovieDetails"; // ✅ Add this import
 
 export default function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-100">
         {/* Navbar */}
-        <header className="bg-blue-600 text-white p-4 flex justify-between items-center">
+        <header className="bg-blue-600 text-white p-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
           <Link to="/" className="text-2xl font-bold">
             🎬 Movie Explorer
           </Link>
@@ -24,7 +24,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchResults />} />
-            <Route path="/movie/:id" element={<MovieDetails />} />   {/* ✅ Works now */}
+            <Route path="/movie/:id" element={<MovieDetails />} />{" "}
+            {/* ✅ Works now */}
             <Route path="/movie/:id/play" element={<MoviePlayer />} />
           </Routes>
         </main>
