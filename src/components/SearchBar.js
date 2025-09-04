@@ -20,7 +20,7 @@ export default function SearchBar() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search movies..."
-        className="px-3 py-2 rounded border w-64"
+        className="px-3 py-2 rounded border w-64 text-black"
       />
       <button
         type="submit"

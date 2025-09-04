@@ -13,12 +13,21 @@ export const getTrendingMovies = async () => {
   return res.data.results;
 };
 
-export const searchMovies = async (query) => {
-  const res = await tmdb.get("/search/movie", { params: { query } });
-  return res.data.results;
+export const searchMovies = async (query, page = 1) => {
+  const res = await tmdb.get("/search/movie", {
+    params: { query, page },
+  });
+  return res.data;
 };
 
 export const getMovieDetails = async (id) => {
   const res = await tmdb.get(`/movie/${id}`);
   return res.data;
 };
+
+export const getPopularMovies = async (page = 1) => {
+  const res = await tmdb.get("/movie/popular", { params: { page } });
+  return res.data;
+};
+
+

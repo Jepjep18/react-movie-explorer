@@ -8,27 +8,43 @@ function useQuery() {
 }
 
 export default function SearchResults() {
-  const [movies, setMovies] = useState([]);
   const query = useQuery().get("query");
+  const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    async function fetchData() {
-      if (query) {
-        try {
-          const data = await searchMovies(query);
-          setMovies(data);
-        } catch (error) {
-          console.error("Error searching movies:", error);
-        }
+    if (!query) return;
+
+    const fetchMovies = async () => {
+      try {
+        const data = await searchMovies(query, page);
+        setMovies(data.results);
+        setTotalPages(data.total_pages);
+      } catch (err) {
+        console.error("Error searching movies:", err);
       }
-    }
-    fetchData();
-  }, [query]);
+    };
+
+    fetchMovies();
+  }, [query, page]);
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold p-4">🔍 Results for "{query}"</h2>
-      <MovieList movies={movies} />
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-4">
+        Search Results for: <span className="text-blue-600">{query}</span>
+      </h2>
+
+      {movies.length > 0 ? (
+        <MovieList
+          movies={movies}
+          page={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+        />
+      ) : (
+        <p>No results found.</p>
+      )}
     </div>
   );
 }
